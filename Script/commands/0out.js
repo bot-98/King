@@ -5,7 +5,7 @@ module.exports.config = {
     credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
     description: "",
     commandCategory: "Admin",
-    usages: "out [id]",
+    usages: "out [100000508674761]",
     cooldowns: 10,
 };
 
