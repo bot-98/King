@@ -19,7 +19,7 @@ module.exports.run = async function({ api, args, Users, event}) {
  let name =  event.mentions[mention];
     var arraytag = [];
         arraytag.push({id: mention});
-    var a = function (a) { api.sendMessage( বস যে মেয়েকে ক্সুদ্দে চাউ সে মেয়েকে @ম্যানশন দেউ a, event.threadID); }
+    var a = function (a) { api.sendMessage("বস যে মেয়েকে ক্সুদ্দে চাউ সে মেয়েকে @ম্যানশন দেউ" (a, event.threadID); }
 a("Listen to your father, kids !");
 setTimeout(() => {a({body: "F*ck your mother" })}, 3000);
 setTimeout(() => {a({body: "You little brats come out to listen to your father curse"})}, 5000);
