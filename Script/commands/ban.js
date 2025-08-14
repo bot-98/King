@@ -118,7 +118,7 @@ module.exports.run = async function({ api, args, Users, event, Threads, utils, c
 	
   	if(!id) return api.sendMessage("❎Need to enter the id of the person to be removed from the banned list of the group", threadID, messageID);
   	bans.banned;
-  	if(!mybox.includes(id)) return api.sendMessage("✅This person hasn't been banned from your group yet", threadID, messageID);
+  	if(!mybox.includes(id)) return api.sendMessage("🔰বক্স এ আবলামি করার অপরাধে তোরে  বেন করে দেওয়া হয়েছে😾", threadID, messageID);
 			api.sendMessage(`✅Removed the member with id ${id} from the group banned list`, threadID, messageID);
 			mybox.splice(mybox.indexOf(id), 1);
 			delete bans.warns[threadID][id]
