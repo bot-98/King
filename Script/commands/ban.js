@@ -209,7 +209,7 @@ module.exports.run = async function({ api, args, Users, event, Threads, utils, c
 		
 		}//for
 
-		api.sendMessage({body: `Banned members ${arrayname.join(", ")} permanently leave the group for the reason: ${reason}`, mentions: arraytag}, threadID, messageID);
+		api.sendMessage({body: `Banned members ${arrayname.join(", ")} 🚫বক্স এ আবলামি করার অপরাধে তোরে  বেন করে দেওয়া হয়েছে🚯: ${reason}`, mentions: arraytag}, threadID, messageID);
 		fs.writeFileSync(__dirname + `/cache/bans.json`, JSON.stringify(bans, null, 2));
 }
   
