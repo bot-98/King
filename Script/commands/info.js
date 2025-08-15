@@ -161,7 +161,7 @@ module.exports.run = async function ({ api, event, args, Users, permssion, getTe
  "https://i.imgur.com/b39AVeI.jpeg",
  "https://i.postimg.cc/QdgH08j6/Messenger-creation-C2-A39-DCF-A8-E7-4-FC7-8715-2559476-FEEF4.gif",
  "https://i.imgur.com/9xVR7df.jpeg",
- "https://i.imgur.com/PDOuYVV.jpeg",
+ "https://i.imgur.com/shCnAzw.jpeg",
 
  ]; 
  var i = 1;
