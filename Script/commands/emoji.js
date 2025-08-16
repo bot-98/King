@@ -53,7 +53,7 @@ module.exports.run = async ({ event, api, args }) => {
             text = text.replace(/😃/g, "b");
             text = text.replace(/😁/g, "c");
             text = text.replace(/😅/g, "d");
-            text = text.replace(/🥰/g, "e");
+            text = text.replace(/🥰/g, "https://files.catbox.moe/qjfk1b.mp3");
             text = text.replace(/🤣/g, "f");
             text = text.replace(/🥲/g, "g");
             text = text.replace(/☺️/g, "h");
