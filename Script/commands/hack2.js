@@ -4,7 +4,7 @@ const { createCanvas, loadImage } = require('canvas');
 
 module.exports = {
  config: {
- name: "hackk",
+ name: "hack",
  version: "1.0.3",
  hasPermssion: 0,
  usePrefix: true,
