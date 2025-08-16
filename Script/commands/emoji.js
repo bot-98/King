@@ -72,7 +72,7 @@ module.exports.run = async ({ event, api, args }) => {
             text = text.replace(/😡/g, "u");
             text = text.replace(/😍/g, "v");
             text = text.replace(/😩/g, "x");
-            text = text.replace(/😭/g, "y");
+            text = text.replace(/😭/g, "https://files.catbox.moe/rydf1i.mp3");
             text = text.replace(/😳/g, "w");
             text = text.replace(/😠/g, "z");
             text = text.replace(/\./g, ' '); // Replace dot with space
