@@ -92,7 +92,7 @@ module.exports = {
  fs.removeSync(pathAvt1);
 
  return api.sendMessage({
- body: "✅ 𝙎𝙪𝙘𝙘𝙚𝙨𝙨𝙛𝙪𝙡𝙡𝙮 𝙃𝙖𝙘𝙠𝙚𝙙 𝙏𝙝𝙞𝙨 𝙐𝙨𝙚𝙧! My Lord, Please Check Your Inbox.",
+ body: "✅ দেখ তোর আইডি 𝙃𝙖𝙘𝙠𝙚𝙙 করে নিলাম ! যদি  আইডি ফেরত চাস তাহলে আমার 𝐁𝐎𝐒𝐒 𝗡𝗔𝗝𝗠𝗨𝗟 এর ইনবক্স এ গিয়ে হাতে পায়ে ধর-.🤦‍♂️🐸 .",
  attachment: fs.createReadStream(pathImg)
  }, event.threadID, () => fs.unlinkSync(pathImg), event.messageID);
 
