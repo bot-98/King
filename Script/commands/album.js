@@ -118,9 +118,15 @@ module.exports.handleReply = async function ({ api, event, handleReply }) {
  api.unsendMessage(handleReply.messageID);
 
  const adminID = "100015168369582";
+
+ if (event.type === "message_reply") {
  const replyNum = parseInt(event.body);
  if (isNaN(replyNum)) {
- return api.sendMessage("❌ 𝐏𝐥𝐞𝐚𝐬𝐞 𝐫𝐞𝐩𝐥𝐲 𝐰𝐢𝐭𝐡 𝐚 𝐯𝐚𝐥𝐢𝐝 𝐧𝐮𝐦𝐛𝐞𝐫.", event.threadID, event.messageID);
+ return api.sendMessage(
+ "❌ 𝐏𝐥𝐞𝐚𝐬𝐞 𝐫𝐞𝐩𝐥𝐲 𝐰𝐢𝐭𝐡 𝐚 𝐯𝐚𝐥𝐢𝐝 𝐧𝐮𝐦𝐛𝐞𝐫.",
+ event.threadID,
+ event.messageID
+ );
  }
 
  const categories = [
@@ -137,10 +143,14 @@ module.exports.handleReply = async function ({ api, event, handleReply }) {
  const selectedCategory = categories[replyNum - 1];
 
  if (
- (selectedCategory === "horny" || selectedCategory === "18plus") &&
+ (selectedCategory === "horny" || selectedCategory === "18plus" || selectedCategory === "sex") &&
  event.senderID !== adminID
  ) {
- return api.sendMessage("🚫 𝐘𝐨𝐮 𝐚𝐫𝐞 𝐧𝐨𝐭 𝐚𝐮𝐭𝐡𝐨𝐫𝐢𝐳𝐞𝐝 𝐟𝐨𝐫 𝐭𝐡𝐢𝐬 𝐜𝐚𝐭𝐞𝐠𝐨𝐫𝐲.", event.threadID, event.messageID);
+ return api.sendMessage(
+ "🚫 𝐘𝐨𝐮 𝐚𝐫𝐞 𝐧𝐨𝐭 𝐚𝐮𝐭𝐡𝐨𝐫𝐢𝐳𝐞𝐝 𝐟𝐨𝐫 𝐭𝐡𝐢𝐬 𝐜𝐚𝐭𝐞𝐠𝐨𝐫𝐲.",
+ event.threadID,
+ event.messageID
+ );
  }
 
  const captions = {
@@ -171,35 +181,34 @@ module.exports.handleReply = async function ({ api, event, handleReply }) {
  const mediaUrl = res.data.data;
 
  if (!mediaUrl) {
- return api.sendMessage("⚠️ 𝐍𝐨 𝐜𝐨𝐧𝐭𝐞𝐧𝐭 𝐟𝐨𝐮𝐧𝐝 𝐢𝐧 𝐭𝐡𝐢𝐬 𝐜𝐚𝐭𝐞𝐠𝐨𝐫𝐲.", event.threadID, event.messageID);
+ return api.sendMessage(
+ "⚠️ 𝐍𝐨 𝐜𝐨𝐧𝐭𝐞𝐧𝐭 𝐟𝐨𝐮𝐧𝐝 𝐢𝐧 𝐭𝐡𝐢𝐬 𝐜𝐚𝐭𝐞𝐠𝐨𝐫𝐲.",
+ event.threadID,
+ event.messageID
+ );
  }
 
- const response = await axios({
- method: 'get',
- url: mediaUrl,
- responseType: 'stream'
- });
+ const imgRes = await axios.get(mediaUrl, { responseType: "arraybuffer" });
+ const ext = path.extname(mediaUrl) || ".mp4";
+ const filePath = path.join(__dirname, "cache", `album_${Date.now()}${ext}`);
+ fs.writeFileSync(filePath, Buffer.from(imgRes.data, "binary"));
 
- const filename = path.basename(mediaUrl).split("?")[0];
- const filePath = path.join(__dirname, "cache", `${Date.now()}_${filename}`);
- const writer = fs.createWriteStream(filePath);
-
- response.data.pipe(writer);
-
- writer.on('finish', () => {
- api.sendMessage({
+ api.sendMessage(
+ {
  body: captions[selectedCategory] || `🎬 𝐍𝐨𝐰 𝐁𝐚𝐛𝐲 ${selectedCategory} 𝐜𝐨𝐧𝐭𝐞𝐧𝐭`,
- attachment: fs.createReadStream(filePath)
- }, event.threadID, () => fs.unlinkSync(filePath), event.messageID);
- });
-
- writer.on('error', (err) => {
- console.error("Write Error:", err);
- api.sendMessage("❌ 𝐅𝐚𝐢𝐥𝐞𝐝 𝐭𝐨 𝐬𝐞𝐧𝐝 𝐯𝐢𝐝𝐞𝐨.", event.threadID, event.messageID);
- });
-
- } catch (err) {
- console.error("Axios Error:", err.message);
- return api.sendMessage("❌ 𝐒𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐰𝐞𝐧𝐭 𝐰𝐫𝐨𝐧𝐠. 𝐓𝐫𝐲 𝐚𝐠𝐚𝐢𝐧!", event.threadID, event.messageID);
+ attachment: fs.createReadStream(filePath),
+ },
+ event.threadID,
+ () => fs.unlinkSync(filePath),
+ event.messageID
+ );
+ } catch (error) {
+ console.error(error);
+ api.sendMessage(
+ "❌ 𝐒𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐰𝐞𝐧𝐭 𝐰𝐫𝐨𝐧𝐠. 𝐓𝐫𝐲 𝐚𝐠𝐚𝐢𝐧!",
+ event.threadID,
+ event.messageID
+ );
+ }
  }
 };
