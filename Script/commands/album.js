@@ -137,7 +137,7 @@ module.exports.handleReply = async function ({ api, event, handleReply }) {
  const selectedCategory = categories[replyNum - 1];
 
  if (
- (selectedCategory === "horny" || selectedCategory === "18plus") &&
+ (selectedCategory === "admin" || selectedCategory === "admin") &&
  event.senderID !== adminID
  ) {
  return api.sendMessage("🚫 𝐘𝐨𝐮 𝐚𝐫𝐞 𝐧𝐨𝐭 𝐚𝐮𝐭𝐡𝐨𝐫𝐢𝐳𝐞𝐝 𝐟𝐨𝐫 𝐭𝐡𝐢𝐬 𝐜𝐚𝐭𝐞𝐠𝐨𝐫𝐲.", event.threadID, event.messageID);
