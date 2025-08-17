@@ -56,7 +56,7 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
      return api.sendMessage("~ তোমার বাল উঠে নাই নাকি তোমার?? 🤖", threadID);
    };
 
-  if ((event.body.toLowerCase() == "NAJMUL") || (event.body.toLowerCase() == "NAJMUL VAi") || (event.body.toLowerCase() == "@Ullash ッ") || (event.body.toLowerCase() == "উল্লাস")) {
+  if ((event.body.toLowerCase() == "Najmul") || (event.body.toLowerCase() == "NAJMUL VAi") || (event.body.toLowerCase() == "@Ullash ッ") || (event.body.toLowerCase() == "উল্লাস")) {
      return api.sendMessage("উনি এখন কাজে বিজি আছে কি বলবেন আমাকে বলতে পারেন..!😘",threadID);
 
        
@@ -91,8 +91,8 @@ module.exports.handleEvent = async function({ api, event, args, Threads, Users }
      return api.sendMessage("সরি বস মাফ করে দেন আর এমন ভুল হবে না🥺🙏", threadID);
    };
 
-   if ((event.body.toLowerCase() == "@X'x R'ezbi") || (event.body.toLowerCase() == "@X'x R'ezbi ")) {
-     return api.sendMessage("খবরদার কেউ এই আইড়ি মেনশন দিবানা এটা আমার বস নাজমুল এর বউ এর আইড়ি😠🥰⛏️", threadID);
+   if ((event.body.toLowerCase() == "@Nazbul Mondal") || (event.body.toLowerCase() == "@X'x R'ezbi ")) {
+     return api.sendMessage("বস নাজমুল এখন ঘুমাচ্ছে কেউ মেনশন দিবি না না😠🥰⛏️", threadID);
    };
 
   if ((event.body.toLowerCase() == "Mahi") || (event.body.toLowerCase() == "arohi")) {
