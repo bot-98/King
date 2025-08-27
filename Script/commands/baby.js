@@ -1,5 +1,5 @@
 const axios = require("axios");
-const simsim = "https://cyber-simsimi.onrender.com";
+const simsim = "https://baby.cyberbot.top";
 
 module.exports.config = {
  name: "baby",
