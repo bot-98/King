@@ -111,8 +111,7 @@ request(encodeURI(randomLink))
 .pipe(fs.createWriteStream(path))
 .on("close", () => {
 api.sendMessage({
-body: "one said love যদি best হয়,"🙂🐰❤️‍🩹
-তবে আমি তোমায় না দেখেই ভালো বাসি-,,❤️‍🩹😅",
+body: "one said love😊best হয়🙂🐰❤️‍🩹",
 attachment: fs.createReadStream(path)
 }, event.threadID, () => fs.unlinkSync(path));
 });
