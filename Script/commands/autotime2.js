@@ -1,66 +1,28 @@
-const schedule = require('node-schedule');
-const moment = require('moment-timezone');
-const chalk = require('chalk');
-
 module.exports.config = {
-    name: 'autosent',
-    version: '10.0.1',
-    hasPermssion: 0,
-    credits: 'Shahadat Islam',
-    description: 'Automatically sends messages at scheduled times (Kolkata Time)',
-    commandCategory: 'group messenger',
-    usages: '[]',
-    cooldowns: 3
+  name: "time",
+  version: "1.0.0",
+  permssion: 0,
+  prefix: true,
+  credits: "najmul",
+  description: "( 𝙀𝙭𝙖𝙘𝙩 𝙩𝙞𝙢𝙚 & 𝙙𝙖𝙩𝙚 )",
+  category: "Time and Date",
+  usages: "( Exact time )",
+  cooldowns: 0,
+  dependencies: []
 };
 
-const messages = [
-    { time: '12:00 AM', message: 'এখন সময় রাত 12:00 AM ⏳\nঅনেক রাত হলো, ঘুমিয়ে পড় Bby Good Night 😴💤❤️|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '1:00 AM', message: 'এখন সময় রাত 1:00 AM ⏳\nকিরে তুই এখনো ঘুমাস নাই? তাড়াতাড়ি ঘুমিয়ে পড়!😾😴🛌|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '2:00 AM', message: 'এখন সময় রাত 2:00 AM ⏳\nঘুমে আয় ভাই! এখনো জাইগা আফসোস ক্যান?😤👊💤|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '3:00 AM', message: 'এখন সময় রাত 3:00 AM ⏳\nসবাই ঘুমাইয়া গেছে, তুই এখন জাইগা আসোস ক্যান?🙄🌃🛌|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '4:00 AM', message: 'এখন সময় ভোর 4:00 AM ⏳\nএকটু পর আজান হবে, সময় হয়ে গেছে। 🕌🕋🕓|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '5:00 AM', message: 'এখন সময় ভোর 5:00 AM ⏳\nফজরের আজান হয়ে গেছে, নামাজটা পরে নিও পিও~ 🕌✨🤲💖|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '6:00 AM', message: 'এখন সময় সকাল 6:00 AM ⏳\nআসসালামুয়ালাইকুম Good Morning Bby! এখন বিছানা থেকে উঠে ব্যায়াম টা করে ফেল 🌅💖😳|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '7:00 AM', message: 'এখন সময় সকাল 7:00 AM ⏳\nঘুম ভাঙতেই মোবাইল! দাঁত ব্রাশটা করবি তো নাকি!🛌➡️🍼|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '8:00 AM', message: 'এখন সময় সকাল 8:00 AM ⏳\nপিও, মোবাইল রেখে দাঁত ব্রাশ করে খেয়ে নাও!📱🪥🍽️|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '9:00 AM', message: 'এখন সময় সকাল 9:00 AM ⏳\nBby, Breakfast korco?🍳🥞💖|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '10:00 AM', message: 'এখন সময় সকাল 10:00 AM ⏳\nকিরে ভন্ড, তুই আজ কলেজ যাস নাই? 😜📚🙄|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '11:00 AM', message: 'এখন সময় সকাল 11:00 AM ⏳\nনাটক কম কর পিও~ বস এখন বিজি আছে!🙄📱💼|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '12:00 PM', message: 'এখন সময় দুপুর 12:00 PM ⏳\nGood Afternoon! 🌞🙌🌸|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '1:00 PM', message: 'এখন সময় দুপুর 1:00 PM ⏳\nভন্ড কোথাকার মোবাইল বন্ধ করে জোহরের নামাজ পড়ে নাও😻❣️🥰|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '2:00 PM', message: 'এখন সময় দুপুর 2:00 PM ⏳\nভন্ড কোথাকার, মোবাইল রাখ! গোসল করে খাওয়া-দাওয়া করে নে|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ🔪🛁🍽️', special: null },
-    { time: '3:00 PM', message: 'এখন সময় বিকেল 3:00 PM ⏳\nJan, তোমাকে ছাড়া আর দুপুরে ঘুম হয় না….!😴💔🌙|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '4:00 PM', message: 'এখন সময় বিকেল 4:00 PM ⏳\nঅনেক গরম পড়েছিল আজ! 🥵🌞💦|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '5:00 PM', message: 'এখন সময় বিকেল 5:00 PM ⏳\nপরিস্থিতি যেমনি হোক না কেন, সব সময় হলে হাসতেই হবে! 😅🕒🙂|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '6:00 PM', message: 'এখন সময় সন্ধ্যা 6:00 PM ⏳\nGood Evening Everyone! সবাই হাত মুখ ধুয়ে নাও! 🌆👐💦|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '7:00 PM', message: 'এখন সময় সন্ধ্যা 7:00 PM ⏳\nকিরে ভন্ড, তুই আজ পড়তে বসছিলি নাকি?😏📚🤔|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '8:00 PM', message: 'এখন সময় রাত 8:00 PM ⏳\nওই ওই, এতো bot bot না করে আমার বস শাহাদাৎ কে একটা গফ দে...!🫰😎🔥|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '9:00 PM', message: 'এখন সময় রাত 9:00 PM ⏳\nআমার cute bby টাহ খানা খাইছে...!😘🍽️❤️|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '10:00 PM', message: 'এখন সময় রাত 10:00 PM ⏳\nকিরে ভন্ড, খাইবি কখন? সারাদিন মোবাইল টিপস..!😜📱😾|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null },
-    { time: '11:00 PM', message: 'এখন সময় রাত 11:00 PM ⏳\nযে ছেড়ে গেছে 😔 তাকে ভুলে যাও 🙂 আমার বস ᴺᴬᴶᴹᵁᴸ এর সাথে প্রেম করে তাকে দেখিয়ে দাও...!🙈🐸🤗|𝐢𝐭𝐳 𝐄𝐕𝐈𝐋 𝐛𝐨𝐭|ᴺᴬᴶᴹᵁᴸ', special: null }
-];
-
-module.exports.onLoad = ({ api }) => {
-    console.log(chalk.bold.hex("#00c300")("============ AUTOSENT COMMAND LOADED (KOLKATA TIME) ============"));
-
-    messages.forEach(({ time, message }) => {
-        const [hour, minute, period] = time.split(/[: ]/);
-        let hour24 = parseInt(hour, 10);
-        if (period === 'PM' && hour !== '12') hour24 += 12;
-        if (period === 'AM' && hour === '12') hour24 = 0;
-
-        const rule = new schedule.RecurrenceRule();
-        rule.tz = 'Asia/Kolkata';
-        rule.hour = hour24;
-        rule.minute = parseInt(minute, 10);
-
-        schedule.scheduleJob(rule, () => {
-            if (!global.data?.allThreadID) return;
-            global.data.allThreadID.forEach(threadID => {
-                api.sendMessage(message, threadID, (error) => {
-                    if (error) console.error(chalk.red(`Error sending message to thread ${threadID}: ${error}`));
-                });
-            });
-        });
-    });
-};
+module.exports.run = async function ({ api, event, args, Currencies, Users }) {
+  const moment = require("moment-timezone");
+  var supremo = moment.tz('Asia/Kolkata').format('HH:mm:ss');
+  var draven = moment.tz('Asia/Kolkata').format('D/MM/YYYY');
+  var kiel = moment.tz('Asia/Kolkata').format('dddd');
+  if (kiel == 'Sunday') kiel = 'Sunday'
+  if (kiel == 'Monday') kiel = 'Monday'
+  if (kiel == 'Tuesday') kiel = 'Tuesday'
+  if (kiel == 'Wednesday') kiel = 'Wednesday'
+  if (kiel == "Thursday") kiel = 'Thursday'
+  if (kiel == 'Friday') kiel = 'Friday'
+  if (kiel == 'Saturday') kiel = 'Saturday'
+  let name = await Users.getNameUser(event.senderID);
+  return api.sendMessage(`〘───── •『 𝙏𝙞𝙢𝙚 』• ─────〙\n𝙃𝙚𝙡𝙡𝙤「﹝${name}﹞」\n𝙏𝙝𝙚 𝙥𝙧𝙚𝙨𝙚𝙣𝙩 𝙩𝙞𝙢𝙚 : ${supremo} \n𝘿𝙖𝙮 : ${draven} (${kiel})\n〘───── •『 𝙏𝙞𝙢𝙚 』• ─────〙`, event.threadID, event.messageID)
+}
