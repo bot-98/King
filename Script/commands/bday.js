@@ -41,9 +41,9 @@ module.exports.run = async ({ api, event }) => {
 ╟─────────────────
 ║ 📩 Connect With Him: 
 ║ ➤ 📘 Facebook : 
-║ www.facebook.com/100000777302443
+║ www.facebook.com/100065264163407
 ║ ➤ 💬 Messenger : 
-║ m.me/100000777302443
+║ m.me/100065264163407
 ║ ➤ 📱 WhatsApp : 
 ║ https://wa.me/+919339277338
 ╟─────────────────
